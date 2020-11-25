@@ -86,8 +86,9 @@ void matching(char a[], char b[]);
 
 void menu_first() //初始菜单
 {				  //显示开始菜单
+	do{
 	system("cls"); //清屏
-	printf("\n\n\t\t欢迎进入狗葱图书馆\n\n");
+	printf("\n\n\t\t欢迎进入图书馆管理系统\n\n");
 	printf("*****************************************");
 	printf("\n\n\t\t1.会员登陆\n\n");
 	printf("\n\n\t\t2.游客登录\n\n");
@@ -104,8 +105,12 @@ void menu_first() //初始菜单
 		menu_tourist();
 		break;
 	default:
-		break;
+		printf("输入错误，请重新输入！\n");
+		printf("输入任意数字继续：\n");
+		char t[10];
+		fgets(t, 5, stdin);
 	}
+	} while (1);
 }
 
 void menu_user() //显示登录菜单
@@ -118,10 +123,9 @@ void menu_user() //显示登录菜单
 		printf("\t\t1.登录系统\n");
 		printf("\t\t2.创建账号\n");
 		printf("\t\t3.修改密码\n");
-		printf("\t\t4.退出系统\n");
-		printf("\t\t5.查看用户列表（测试用）\n");
-		printf("\t\t6.删除用户（测试用）\n");
-		printf("\n\n\t    请输入对应数字选择，回车确定\n");
+		printf("\t\t4.返回主菜单\n");
+		printf("\t\t5.退出系统\n");
+		printf("\n\n请输入对应数字选择，回车确定\n");
 		printf("*********************************************\n");
 
 		char t;
@@ -139,15 +143,16 @@ void menu_user() //显示登录菜单
 			change_password();
 			break;
 		case '4':
-			exit(0);
-		case '5':
-			print_user();
+			menu_first();
 			break;
-		case '6':
-			account_delete();
+		case '5':
+			exit(0);
 			break;
 		default:
-			exit(0);
+			printf("输入错误，请重新输入！\n");
+			printf("输入任意数字继续：\n");
+			char t[10];
+			fgets(t, 5, stdin);
 		}
 	} while (1);
 	return;
@@ -162,7 +167,8 @@ void menu_tourist() //显示游客菜单
 		printf("**********************************************\n");
 		printf("\t\t1.图书总览\n");
 		printf("\t\t2.图书查询\n");
-		printf("\t\t3.退出系统\n");
+		printf("\t\t3.返回主菜单\n");
+		printf("\t\t4.退出系统\n");
 		printf("\n\n\t    请输入对应数字选择，回车确定\n");
 		printf("*********************************************\n");
 
@@ -178,8 +184,14 @@ void menu_tourist() //显示游客菜单
 			search();
 			break;
 		case '3':
-		default:
+			menu_first();
+		case '4':
 			exit(0);
+		default:
+			printf("输入错误，请重新输入！\n");
+			printf("输入任意数字继续：\n");
+			char t[10];
+			fgets(t, 5, stdin);
 		}
 	} while (1);
 }
@@ -192,12 +204,15 @@ void menu_common() //管理员菜单
 		char t;
 		printf(" 管理员操作界面");
 		printf(" 图书查询管理系统\n");
-		printf("|     1.图书入库      |\n");
-		printf("|     2.修改信息      |\n");
-		printf("|     3.删除信息      |\n");
-		printf("|     4.图书查询      |\n");
-		printf("|     5.图书总览      |\n");
-		printf("|     6.退出软件      |\n");
+		printf("|     1.图书入库      \n");
+		printf("|     2.修改图书信息  \n");
+		printf("|     3.删除信息      \n");
+		printf("|     4.图书查询      \n");
+		printf("|     5.图书总览      \n");
+		printf("|     6.查看用户列表  \n");
+		printf("|     7.删除用户      \n");
+		printf("|     8.返回主菜单    \n");
+		printf("|     9.退出软件      \n");
 		printf("请选择您要使用的功能：");
 		scanf("%c", &t);
 		getchar();
@@ -219,10 +234,19 @@ void menu_common() //管理员菜单
 			print_book();
 			break;
 		case '6':
+			print_user();
+			break;
+		case '7':
+			account_delete();
+		case '8':
+			menu_first();
+		case '9':
 			exit(0);
-			break;
 		default:
-			break;
+			printf("输入错误，请重新输入！\n");
+			printf("输入任意数字继续：\n");
+			char t[10];
+			fgets(t, 5, stdin);
 		}
 	} while (1);
 }
@@ -264,9 +288,13 @@ void menu_sign(student p) //登录成功后显示的菜单
 		case '5':
 			stu_information(p);
 			break;
-		case '7':
-		default:
+		case '6':
 			exit(0);
+		default:
+			printf("输入错误，请重新输入！\n");
+			printf("输入任意数字继续：\n");
+			char t[10];
+			fgets(t, 5, stdin);
 		}
 	} while (1);
 	return;
@@ -418,26 +446,30 @@ void add_book() //图书录入
 
 		system("cls");
 
-		printf("-------------------------");
+		printf("-------------------------\n");
 
-		printf("|                       |");
+		printf("|                       |\n");
 
-		printf("| 保存成功！是否继续？  |");
+		printf("| 保存成功！是否继续？  |\n");
 
-		printf("| 1.是             2.否 |");
+		printf("| 1.是             2.否 |\n");
 
-		printf("|                       |");
+		printf("|                       |\n");
 
 		printf("-------------------------\n");
 		while (1) //利用死循环可有效防止其他按键干扰
 		{
 			t = getchar();
+			getchar();
 			if (t == '1')
 			{
 				break;
 			}
 			else if (t == '2')
 			{
+				printf("输入任意数字返回：\n");
+				char r[10];
+				fgets(r, 5, stdin);
 				return;
 			}
 		}
@@ -472,7 +504,7 @@ void print_book() //图书总览
 		sum += 1;
 	}
 
-	printf("图书总量为：%d", sum);
+	printf("图书总量为：%d\n", sum);
 	printf("输入任意数字返回：\n");
 	char t[10];
 	fgets(t, 5, stdin);
@@ -1674,20 +1706,21 @@ void change_password() //修改密码
 		gets(new_password);
 		strcpy(p->data.stu_passw, new_password);
 
-		printf("-------------------------");
+		printf("-------------------------\n");
 
-		printf("|                       |");
+		printf("|                       |\n");
 
-		printf("|      是否确认修改      |");
+		printf("|      是否确认修改      |\n");
 
-		printf("| 1.是             2.否 |");
+		printf("| 1.是             2.否 |\n");
 
-		printf("|                       |");
+		printf("|                       |\n");
 
 		printf("-------------------------\n");
 		while (1) //利用死循环可有效防止其他按键干扰
 		{
 			tt = getchar();
+			getchar();
 			if (tt == '1')
 			{
 				break;
@@ -1727,7 +1760,7 @@ void change_password() //修改密码
 			}
 			fclose(fp);
 		}
-		printf("修改成功，返回");
+		printf("修改成功\n");
 		break;
 	} while (1);
 	printf("输入任意数字返回：\n");
